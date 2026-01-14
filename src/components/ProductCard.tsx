@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Heart, ShoppingBag } from 'lucide-react';
+import { Heart } from 'lucide-react';
 import { Product } from '@/lib/types';
-import { useCart } from '@/context/CartContext';
 import { toast } from 'sonner';
 
 interface ProductCardProps {
@@ -13,17 +12,14 @@ interface ProductCardProps {
 export default function ProductCard({ product, onQuickView }: ProductCardProps) {
   const navigate = useNavigate();
   const [isWishlisted, setIsWishlisted] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-  const { addToCart } = useCart();
+  const [isNavigating, setIsNavigating] = useState(false);
 
   const handleClick = () => {
+    if (isNavigating) return;
+    setIsNavigating(true);
     navigate(`/productos/${product.id}`);
-  };
-
-  const handleAddToCart = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    addToCart(product);
-    toast.success(`${product.name} agregado al carrito`);
+    // Reset after a short delay to allow navigation
+    setTimeout(() => setIsNavigating(false), 500);
   };
 
   const handleWishlist = (e: React.MouseEvent) => {
@@ -38,10 +34,9 @@ export default function ProductCard({ product, onQuickView }: ProductCardProps) 
 
   return (
     <div
-      className="group relative bg-white rounded overflow-hidden transition-all duration-300 hover:shadow-lg cursor-pointer"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      className="group relative bg-white rounded overflow-hidden transition-all duration-300 hover:shadow-xl hover:shadow-[#c9a961]/20 hover:-translate-y-1 cursor-pointer border border-transparent hover:border-[#e8e4e0]"
       onClick={handleClick}
+      style={{ touchAction: 'manipulation' }}
     >
       {/* Image Container */}
       <div className="relative aspect-square bg-[#f5f1ed] overflow-hidden">
@@ -76,21 +71,6 @@ export default function ProductCard({ product, onQuickView }: ProductCardProps) 
         >
           <Heart className={`w-4 h-4 ${isWishlisted ? 'fill-current' : ''}`} />
         </button>
-
-        {/* Hover Actions */}
-        <div
-          className={`absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/60 to-transparent transition-all duration-300 ${
-            isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-          }`}
-        >
-          <button
-            onClick={handleAddToCart}
-            className="w-full flex items-center justify-center gap-2 py-2.5 bg-white text-[#1a1a1a] font-medium text-sm rounded hover:bg-[#c9a961] transition-colors"
-          >
-            <ShoppingBag className="w-4 h-4" />
-            Agregar
-          </button>
-        </div>
       </div>
 
       {/* Product Info */}
