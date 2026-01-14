@@ -1,0 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 30 20% 96%;
+    --foreground: 0 0% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 10%;
+
+    --primary: 42 45% 60%;
+    --primary-foreground: 0 0% 10%;
+
+    --secondary: 30 15% 92%;
+    --secondary-foreground: 0 0% 10%;
+
+    --muted: 30 15% 92%;
+    --muted-foreground: 0 0% 42%;
+
+    --accent: 42 45% 60%;
+    --accent-foreground: 0 0% 10%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 30 15% 88%;
+    --input: 30 15% 88%;
+    --ring: 42 45% 60%;
+
+    --radius: 0.25rem;
+  }
+
+  .dark {
+    --background: 0 0% 10%;
+    --foreground: 30 20% 96%;
+
+    --card: 0 0% 14%;
+    --card-foreground: 30 20% 96%;
+
+    --popover: 0 0% 14%;
+    --popover-foreground: 30 20% 96%;
+
+    --primary: 42 45% 60%;
+    --primary-foreground: 0 0% 10%;
+
+    --secondary: 0 0% 18%;
+    --secondary-foreground: 30 20% 96%;
+
+    --muted: 0 0% 18%;
+    --muted-foreground: 30 10% 65%;
+
+    --accent: 42 45% 60%;
+    --accent-foreground: 0 0% 10%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 0 0% 22%;
+    --input: 0 0% 22%;
+    --ring: 42 45% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cormorant Garamond', serif;
+  }
+}
+
+@layer utilities {
+  .font-serif {
+    font-family: 'Cormorant Garamond', serif;
+  }
+  
+  .font-sans {
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f5f1ed;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c9a961;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b8954f;
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Animation classes */
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.5s ease-out forwards;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.3s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
